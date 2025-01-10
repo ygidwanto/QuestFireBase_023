@@ -1,5 +1,6 @@
 package com.example.pertemuan13.ui.viewmodel
 
+import android.os.Message
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -50,4 +51,18 @@ class InsertViewModel(
             uiState = FormState.Error("Data Tidak Valid")
         }
     }
+    fun resetForm(){
+        uiEvent = InsertUiState()
+        uiState = FormState.Idle
+    }
+    fun resetSnackBarMessage(){
+        uiState = FormState.Idle
+    }
+}
+
+sealed class FormState{
+    object Idle : FormState()
+    object Loading : FormState()
+    data class Success(val message: String): FormState()
+    data class Error(val message: String): FormState()
 }
