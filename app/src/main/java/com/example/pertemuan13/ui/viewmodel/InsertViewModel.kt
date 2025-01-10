@@ -2,9 +2,11 @@ package com.example.pertemuan13.ui.viewmodel
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.pertemuan13.model.Mahasiswa
 import com.example.pertemuan13.repository.RepositoryMhs
 import com.google.firebase.events.Event
+import kotlinx.coroutines.launch
 
 class InsertViewModel(
     private val mhs: RepositoryMhs
@@ -30,5 +32,22 @@ class InsertViewModel(
             kelas = if (event.kelas.isNotEmpty()) null else "Kelas tidak boleh kosong",
             angkatan = if (event.angkatan.isNotEmpty()) null else "Angkatan tidak boleh kosong",
         )
+        uiEvent = uiEvent.copy(isEntryValid = errorState)
+        return errorState.isValid()
+    }
+    fun insertMhs(){
+        if (validateFields()){
+            viewModelScope.launch{
+                uiState  = FormState.Loading
+                try {
+                    mhs.insertMhs(uiEvent.insertUiEvent.toMhsModel())
+                    uiState = FormState.Success("Data berhasil disimpan")
+                } catch (e: Exception){
+                    uiState = FormState.Error("Data gagal disimpan")
+                }
+            }
+        }else {
+            uiState = FormState.Error("Data Tidak Valid")
+        }
     }
 }
