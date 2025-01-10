@@ -74,7 +74,7 @@ fun HomeStatus(
                 onDeleteClick(it)
             },
                 onDeleteClick = {
-                    onDeleteClick(it)
+                    viewModel.deleteMhs(it)
                 }
             )
             deleteConfirmationRequired?.let { data ->
@@ -87,6 +87,7 @@ fun HomeStatus(
                         deleteConfirmationRequired = null
                     })
             }
+
         }
         is HomeUiState.Error -> OnError(retryAction,
             modifier = modifier.fillMaxSize(), message = homeUiState.e.message?:"Error")
