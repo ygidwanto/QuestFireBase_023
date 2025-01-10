@@ -6,14 +6,15 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.pertemuan13.MahasiswaApplications
 import com.example.pertemuan13.ui.viewmodel.HomeViewModel
-import kotlinx.coroutines.channels.Channel
+import com.example.pertemuan13.ui.viewmodel.InsertViewModel
 
 object PenyediaViewModel {
     val Factory = viewModelFactory {
-        initializer { HomeViewModel(AplikasiMahasiswa().container.mahasiswaRepository) }
-
+        initializer { HomeViewModel(mahasiswaApp().container.mahasiswaRepository) }
+        initializer { InsertViewModel(mahasiswaApp().container.mahasiswaRepository) }
     }
 }
 
-fun CreationExtras.AplikasiMahasiswa(): MahasiswaApplications =
+fun CreationExtras.mahasiswaApp(): MahasiswaApplications =
     (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as MahasiswaApplications)
+
