@@ -100,3 +100,13 @@ data class MahasiswaEvent(
                 alamat == null && kelas == null && angkatan ==null
     }
 }
+
+// Menyimpan input form ke dalam entity
+fun MahasiswaEvent.toMhsModel(): Mahasiswa = Mahasiswa(
+    nim = nim,
+    nama = nama,
+    jeniskelamin = jenisKelamin,
+    alamat = alamat,
+    kelas = kelas,
+    angkatan = angkatan
+)
