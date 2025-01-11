@@ -1,19 +1,21 @@
 package com.example.pertemuan13.ui.viewmodel
 
-import android.os.Message
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pertemuan13.model.Mahasiswa
 import com.example.pertemuan13.repository.RepositoryMhs
-import com.google.firebase.events.Event
 import kotlinx.coroutines.launch
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+
 
 class InsertViewModel(
     private val mhs: RepositoryMhs
 ): ViewModel(){
     var uiEvent: InsertUiState by mutableStateOf(InsertUiState())
         private set
+
     var uiState: FormState by mutableStateOf(FormState.Idle)
         private set
     // Memperbarui state berdasarkan input pengguna
@@ -94,12 +96,7 @@ data class MahasiswaEvent(
     val alamat: String = "",
     val kelas: String ="",
     val angkatan: String = "",
-) {
-    fun isValid(): Boolean{
-        return nim == null && nama == null && jenisKelamin == null &&
-                alamat == null && kelas == null && angkatan ==null
-    }
-}
+)
 
 // Menyimpan input form ke dalam entity
 fun MahasiswaEvent.toMhsModel(): Mahasiswa = Mahasiswa(

@@ -13,12 +13,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pertemuan13.ui.PenyediaViewModel
 import com.example.pertemuan13.ui.viewmodel.FormErrorState
 import com.example.pertemuan13.ui.viewmodel.FormState
+import com.example.pertemuan13.ui.viewmodel.HomeUiState
 import com.example.pertemuan13.ui.viewmodel.InsertUiState
 import com.example.pertemuan13.ui.viewmodel.InsertViewModel
 import com.example.pertemuan13.ui.viewmodel.MahasiswaEvent
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InsertMhsView(
     onBack: () -> Unit,
@@ -27,6 +29,7 @@ fun InsertMhsView(
     viewModel: InsertViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ) {
     val uiState = viewModel.uiState
+    val uiEvent = viewModel.uiEvent
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
@@ -72,7 +75,8 @@ fun InsertMhsView(
                 .padding(16.dp)
         ) {
             InsertBodyMhs(
-                uiState = uiState,
+                uiState = uiEvent,
+                homeUiState = uiState,
                 onValueChange = { updateEvent ->
                     viewModel.updateState(updateEvent)
                 },
@@ -91,7 +95,8 @@ fun InsertBodyMhs(
     modifier: Modifier = Modifier,
     onValueChange: (MahasiswaEvent) -> Unit,
     uiState: InsertUiState,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    homeUiState: FormState
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -107,9 +112,9 @@ fun InsertBodyMhs(
         Button(
             onClick = onClick,
             modifier = Modifier.fillMaxWidth(),
-            enabled = uiState.formState !is FormState.Loading,
+            enabled = homeUiState !is FormState.Loading,
         ) {
-            if (uiState.formState is FormState.Loading) {
+            if (homeUiState is FormState.Loading) {
                 CircularProgressIndicator(
                     color = Color.White,
                     modifier = Modifier

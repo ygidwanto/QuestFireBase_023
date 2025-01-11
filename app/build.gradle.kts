@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.pertemuan13"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.pertemuan13"
@@ -38,6 +38,14 @@ android {
     buildFeatures {
         compose = true
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1"
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
 }
 
 dependencies {
@@ -60,5 +68,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
 
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation ("androidx.navigation:navigation-compose:2.7.3")
 
 }

@@ -10,8 +10,8 @@ import com.example.pertemuan13.ui.viewmodel.InsertViewModel
 
 object PenyediaViewModel {
     val Factory = viewModelFactory {
-        initializer { HomeViewModel(mahasiswaApp().container.mahasiswaRepository) }
-        initializer { InsertViewModel(mahasiswaApp().container.mahasiswaRepository) }
+        initializer { HomeViewModel(mahasiswaApp().container.repositoryMhs) }
+        initializer { InsertViewModel(mahasiswaApp().container.repositoryMhs) }
     }
 }
 

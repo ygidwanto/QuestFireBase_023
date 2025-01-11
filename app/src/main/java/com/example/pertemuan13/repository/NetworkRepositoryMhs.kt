@@ -9,7 +9,8 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
 class NetworkRepositoryMhs (
-    private val firestore : FirebaseFirestore) : RepositoryMhs{
+    private val firestore : FirebaseFirestore
+) : RepositoryMhs{
     override suspend fun insertMhs(mahasiswa: Mahasiswa) {
         try {
             firestore.collection("Mahasiswa").add(mahasiswa).await()
@@ -38,10 +39,10 @@ class NetworkRepositoryMhs (
         val mhsDocument = firestore.collection("Mahasiswa")
             .document(nim)
             .addSnapshotListener{value, error ->
-                if (value != null){
-                    val mhs = value.toObject(Mahasiswa::class.java)
+                if (value != null) {
+                    val mhs = value.toObject(Mahasiswa::class.java)!!
                     trySend(mhs)
-            }
+                }
             }
         awaitClose{
             mhsDocument.remove()

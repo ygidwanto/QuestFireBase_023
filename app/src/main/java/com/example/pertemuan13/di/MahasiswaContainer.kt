@@ -5,14 +5,14 @@ import com.example.pertemuan13.repository.RepositoryMhs
 import com.google.firebase.firestore.FirebaseFirestore
 
 interface AppContainer{
-    val mahasiswaRepository: RepositoryMhs
+    val repositoryMhs: RepositoryMhs
 }
 
 class MahasiswaContainer: AppContainer{
 
-    private val firebase: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-    override val mahasiswaRepository: RepositoryMhs by lazy {
-        NetworkRepositoryMhs(firebase)
+    override val repositoryMhs: RepositoryMhs by lazy {
+        NetworkRepositoryMhs(firestore)
     }
 }
