@@ -15,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pertemuan13.model.Mahasiswa
 import com.example.pertemuan13.ui.PenyediaViewModel
 import com.example.pertemuan13.ui.viewmodel.HomeUiState
